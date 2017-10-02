@@ -1,9 +1,12 @@
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from api.views import *
+from rest_framework import routers
+from api import views 
 
-urlpatterns = {
-    url(r'^tool/$', ToolViewSet, name="create"),
-}
+router = routers.DefaultRouter()
+router.register(r'tool', views.ToolViewSet, r"tool")
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+
+urlpatterns = [ 
+    url(r'^', include(router.urls))
+]
