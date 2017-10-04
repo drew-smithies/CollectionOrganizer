@@ -1,12 +1,12 @@
 from django.conf.urls import url, include
 from rest_framework.urlpatterns import format_suffix_patterns
-from .views import CreateView
-from .views import DetailsView 
+from rest_framework_mongoengine import routers
+from api import views 
 
-urlpatterns = {
-    url(r'^bucketlists/$', CreateView.as_view(), name="create"),
-    url(r'^bucketlists/(?P<pk>[0-9]+)/$',
-        DetailsView.as_view(), name="details")
-}
+router = routers.DefaultRouter()
+router.register(r'tool', views.ToolViewSet, r"tool")
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+
+urlpatterns = [ 
+    url(r'^', include(router.urls))
+]

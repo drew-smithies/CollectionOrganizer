@@ -1,20 +1,14 @@
-from django.shortcuts import render
-from rest_framework import generics
-from .serializers import BucketlistSerializer
-from .models import Bucketlist
+from rest_framework_mongoengine import viewsets
+from api.serializers import *  
+from api.models import Tool
 
-# Create your views here.
-class CreateView(generics.ListCreateAPIView):
-    """This class defines the create behavior of our rest api."""
-    queryset = Bucketlist.objects.all()
-    serializer_class = BucketlistSerializer
+class ToolViewSet(viewsets.ModelViewSet):
+    '''
+    Contains information about inputs/outputs of a single program
+    that may be used in Universe workflows.
+    '''
+    lookup_field = 'id'
+    serializer_class = ToolSerializer
 
-    def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
-        serializer.save() 
-
-class DetailsView(generics.RetrieveUpdateDestroyAPIView):
-    """This class handles the http GET, PUT and DELETE requests."""
-
-    queryset = Bucketlist.objects.all()
-    serializer_class = BucketlistSerializer
+    def get_queryset(self):
+        return Tool.objects.all()
