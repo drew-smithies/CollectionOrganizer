@@ -11,17 +11,16 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-import sys
-import mongoengine
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x$ze6_@y8s7*b(e@$=^9_5&z$xrxjkou(*qckgn_q82c6rlt@g'
+SECRET_KEY = '628%jm^u_4atk#5!smxk@v3@+=i05&h^td3#s+yko%^q=a*uta'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -38,10 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework_mongoengine',
-    'mongoengine.django.mongo_auth',
-    'api'
 ]
 
 MIDDLEWARE = [
@@ -78,14 +73,12 @@ WSGI_APPLICATION = 'CollectionOrganizer.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-mongoengine.connect('tools_sample')
 
 
 # Password validation
@@ -106,24 +99,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# This is a dummy django model. It's just a crutch to keep django content,
-# while all the real functionality is associated with MONGOENGINE_USER_DOCUMENT
-AUTH_USER_MODEL = 'mongo_auth.MongoUser'
-
-MONGOENGINE_USER_DOCUMENT = 'users.models.User'
-
-# Don't confuse Django's AUTHENTICATION_BACKENDS with DRF's AUTHENTICATION_CLASSES!
-AUTHENTICATION_BACKENDS = (
-    'mongoengine.django.auth.MongoEngineBackend',
-    #'django.contrib.auth.backends.ModelBackend'
-)
-
-DEFAULT_AUTHENTICATION_CLASSES = (
-    'rest_framework.authentication.SessionAuthentication',
-)
-
-LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
