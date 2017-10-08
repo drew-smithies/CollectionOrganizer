@@ -10,8 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+import sys
 import os
-import mongoengine
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,11 +26,25 @@ SECRET_KEY = 'x$ze6_@y8s7*b(e@$=^9_5&z$xrxjkou(*qckgn_q82c6rlt@g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ADMINS = (
+    # ('Your Name', 'your_email@example.com'),
+)
+
+MANAGERS = ADMINS
+
 ALLOWED_HOSTS = []
+
+# MongoDB settings
+MONGODB_DATABASES = {
+    'default': {'name': 'tools_sample'}
+}
+
+DATABASES = {
+    'default': {'ENGINE': 'django.db.backends.dummy'}
+}
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,10 +52,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
-    'rest_framework_mongoengine',
+
+    'django_mongoengine',
+    'django_mongoengine.mongo_auth',
+    'django_mongoengine.mongo_admin',
+
     'api'
 ]
+
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+
+AUTHENTICATION_BACKENDS = (
+    'django_mongoengine.mongo_auth.backends.MongoEngineBackend',
+)
+
+SESSION_ENGINE = 'django_mongoengine.sessions'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -71,20 +97,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'CollectionOrganizer.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/1.11/ref/settings/#databases
-
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-mongoengine.connect('tools_sample')
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
