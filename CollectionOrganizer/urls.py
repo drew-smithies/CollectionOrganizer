@@ -11,8 +11,9 @@ router = routers.DefaultRouter()
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
-# Browsable API URL: url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+# Browsable API URL: 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^browser/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^api/' + settings.API_VERSION, include('api.urls', namespace='api'))
 ]
