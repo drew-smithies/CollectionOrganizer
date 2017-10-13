@@ -2,8 +2,6 @@ from django.conf.urls import url
 from rest_framework.authtoken import views as auth_views
 
 
-# Wire up our API using automatic URL routing.
-# Additionally, we include login URLs for the browsable API.
 # Browsable API URL: url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 app_name = "api"
 urlpatterns = [
