@@ -4,4 +4,4 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-  collection_count = models.IntegerField(default=0) 
+  collection_count = models.IntegerField(default=0)
