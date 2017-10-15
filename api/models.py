@@ -2,11 +2,11 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
-''' User '''
+### User ###
 class User(AbstractUser):
   collection_count = models.IntegerField(default=0)
 
-''' Collection '''
+### Collection ###
 class Collection(models.Model):
   user = models.ForeignKey(
       User,
@@ -19,7 +19,7 @@ class Collection(models.Model):
   def __str__(self):
     return self.name
 
-''' Item '''
+### Item ###
 class Item(models.Model):
   collection = models.ForeignKey(
       Collection,
@@ -32,7 +32,7 @@ class Item(models.Model):
   def __str__(self):
     return self.name
 
-''' Category '''
+### Category ###
 class Category(models.Model):
   name = models.CharField(max_length=64)
   collection = models.ForeignKey(
@@ -45,7 +45,7 @@ class Category(models.Model):
   def __str__(self):
     return self.name
 
-''' Attribute '''
+### Attribute ###
 class Attribute(models.Model):
   item = models.ForeignKey(
       Item,
