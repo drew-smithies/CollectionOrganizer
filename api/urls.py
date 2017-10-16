@@ -6,6 +6,6 @@ from api import views
 app_name = "api"
 urlpatterns = [
     url(r'auth/', auth_views.obtain_auth_token, name="auth"),
-    url(r'user/$', views.UserList.as_view()),
-    url(r'user/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
+    url(r'user/$', views.UserListCreate.as_view(), name="user-create-list"),
+    url(r'user/(?P<pk>[0-9]+)/$', views.UserDetail.as_view(), name="user-detail"),
 ]
