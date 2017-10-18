@@ -3,7 +3,9 @@ from rest_framework import mixins
 from .models import User
 from .serializers import UserSerializer, UserCreateSerializer
 
-class UserListCreate(mixins.CreateModelMixin, mixins.ListModelMixin, generics.GenericAPIView):
+class UserListCreate(mixins.CreateModelMixin,
+                     mixins.ListModelMixin,
+                     generics.GenericAPIView):
   queryset = User.objects.all()
   serializer_class = UserSerializer
 
