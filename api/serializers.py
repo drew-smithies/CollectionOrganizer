@@ -30,7 +30,6 @@ class UserCreateSerializer(serializers.ModelSerializer):
     instance.save()
     return instance
 
-
 class UserSerializer(serializers.ModelSerializer):
   password_confirm = serializers.CharField(write_only=True)
 
@@ -47,7 +46,7 @@ class UserSerializer(serializers.ModelSerializer):
         raise serializers.ValidationError('Please confirm your password.')
       elif data['password'] != data['password_confirm']:
         raise serializers.ValidationError('Oops, your passwords did not match, try again.')
-      #data.pop('password_confirm')
+      data.pop('password_confirm')
     return data
 
   def update(self, instance, validated_data):
