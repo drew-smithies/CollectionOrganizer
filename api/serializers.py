@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.authtoken.models import Token
 from .models import User
 
 class UserCreateSerializer(serializers.ModelSerializer):
@@ -21,13 +22,17 @@ class UserCreateSerializer(serializers.ModelSerializer):
 
   def create(self, validated_data):
     '''
-      Save user and hash password
+      Create new user
     '''
     password = validated_data.pop('password', None)
     instance = self.Meta.model(username=validated_data['username'], email=validated_data['email'])
     if password is not None:
       instance.set_password(password)
     instance.save()
+
+    # Create token
+    Token.objects.create(user=instance)
+
     return instance
 
 class UserSerializer(serializers.ModelSerializer):
