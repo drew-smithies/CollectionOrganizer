@@ -19,6 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
       elif attrs['password'] != attrs['password_confirm']:
         raise serializers.ValidationError('Oops, your passwords did not match, try again.')
       attrs.pop('password_confirm')
+        
     return attrs
 
   def create(self, validated_data):
@@ -27,11 +28,10 @@ class UserSerializer(serializers.ModelSerializer):
     '''
     password = validated_data.pop('password', None)
     instance = self.Meta.model(username=validated_data['username'], email=validated_data['email'])
+    # Set password and create token
+    instance.set_password(password)
     instance.save()
-    if password is not None:
-      # Set password and create token
-      instance.set_password(password)
-      Token.objects.create(user=instance)
+    Token.objects.create(user=instance)
 
     return instance
 
