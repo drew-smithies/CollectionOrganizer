@@ -27,11 +27,11 @@ class UserSerializer(serializers.ModelSerializer):
     '''
     password = validated_data.pop('password', None)
     instance = self.Meta.model(username=validated_data['username'], email=validated_data['email'])
+    instance.save()
     if password is not None:
       # Set password and create token
       instance.set_password(password)
       Token.objects.create(user=instance)
-    instance.save()
 
     return instance
 
